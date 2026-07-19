@@ -50,7 +50,7 @@ Memory Weaver: a user-owned memory mesh across approved apps and agents
 
 The local companion is in [`desktop/`](desktop/README.md). It starts with no connectors and no permissions.
 
-[Download the local companion alpha](https://github.com/BrandonDucar/memory-weaver/releases/tag/memory-weaver-local-v0.1.0-alpha.1)
+[Download the local companion alpha](https://github.com/BrandonDucar/memory-weaver/releases/tag/memory-weaver-local-v0.1.0-alpha.2)
 
 ## Product contract
 
