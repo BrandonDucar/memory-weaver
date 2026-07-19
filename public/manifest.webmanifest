@@ -1,0 +1,9 @@
+{
+  "name": "Memory Weaver",
+  "short_name": "Weaver",
+  "description": "Weave user-owned sources into portable, verifiable context.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3f0e8",
+  "theme_color": "#19221f"
+}
