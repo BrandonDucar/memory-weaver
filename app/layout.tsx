@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://memory-weaver.bd420chef.chatgpt.site"),
   title: {
     default: "Memory Weaver",
     template: "%s · Memory Weaver",
@@ -21,6 +22,18 @@ export const metadata: Metadata = {
   applicationName: "Memory Weaver",
   manifest: "/manifest.webmanifest",
   formatDetection: { telephone: false },
+  openGraph: {
+    type: "website",
+    title: "Memory Weaver",
+    description: "Weave your sources into portable, verifiable context.",
+    images: [{ url: "/og.png", width: 1728, height: 909, alt: "Memory Weaver by DreamNet" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Memory Weaver",
+    description: "Weave your sources into portable, verifiable context.",
+    images: ["/og.png"],
+  },
 };
 
 export const viewport: Viewport = {
