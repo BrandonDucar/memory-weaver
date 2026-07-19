@@ -18,7 +18,11 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm ci --prefix desktop
       - run: npx tsc --noEmit
+      - run: npm run check --prefix desktop
       - run: npm run lint
       - run: npm test
+      - run: npm test --prefix desktop
       - run: npm audit --audit-level=high
+      - run: npm audit --prefix desktop --audit-level=high

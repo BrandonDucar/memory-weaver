@@ -25,7 +25,7 @@ External writeback is intentionally absent from the capability model. Memory Wea
 
 ## Start
 
-Download the [Windows alpha bundle](https://github.com/BrandonDucar/memory-weaver/releases/tag/memory-weaver-local-v0.1.0-alpha.1), extract it, and run `install.ps1`. The installer creates an empty default-deny manifest; it does not scan the computer.
+Download the [Windows alpha bundle](https://github.com/BrandonDucar/memory-weaver/releases/tag/memory-weaver-local-v0.1.0-alpha.2), extract it, and run `install.ps1`. The installer creates an empty default-deny manifest; it does not scan the computer.
 
 For source development:
 
