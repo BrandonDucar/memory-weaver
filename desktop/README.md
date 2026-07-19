@@ -23,6 +23,10 @@ External writeback is not implemented in this alpha. The permission schema reser
 
 ## Start
 
+Download the latest Windows alpha bundle from the [Memory Weaver releases](https://github.com/BrandonDucar/memory-weaver/releases/latest), extract it, and run `install.ps1`. The installer creates an empty default-deny manifest; it does not scan the computer.
+
+For source development:
+
 ```bash
 npm install
 npm run build

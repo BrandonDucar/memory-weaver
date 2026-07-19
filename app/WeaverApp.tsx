@@ -650,7 +650,7 @@ export function WeaverApp() {
                 <article>
                   <span className="connection-icon"><Network size={22} /></span>
                   <div><h2>Memory Weaver local companion</h2><p>Encrypted PGLite vault, approved folder watching, KoiDream lineage, Gourami topology, and a read-only local MCP gateway.</p></div>
-                  <a className="primary-button" href="https://github.com/BrandonDucar/memory-weaver/tree/main/desktop" target="_blank" rel="noreferrer">Open companion</a>
+                  <a className="primary-button" href="https://github.com/BrandonDucar/memory-weaver/releases/latest" target="_blank" rel="noreferrer">Download alpha</a>
                 </article>
                 <article>
                   <span className="connection-icon"><GitBranch size={22} /></span>

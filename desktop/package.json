@@ -3,11 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "files": [
+    "dist",
+    "README.md",
+    "mesh.config.example.json",
+    "install.ps1",
+    "memory-weaver.cmd"
+  ],
   "bin": {
     "memory-weaver": "dist/index.js"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "prepack": "npm run build",
     "check": "tsc -p tsconfig.json --noEmit",
     "dev": "tsx src/index.ts",
     "test": "node --import tsx --test --test-concurrency=1 tests/*.test.ts"
