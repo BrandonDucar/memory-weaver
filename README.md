@@ -19,12 +19,30 @@ It is the local-first knowledge preparation layer for [Warper Keeper](https://gi
 - Optional OpenAI-compatible endpoint connection check
 - Installable web-app manifest and offline shell
 - No account, hosted database, or DreamNet backend required
+- Permissioned local companion with encrypted PGLite storage
+- KoiDream provenance, versioning, deduplication, and receipt generation
+- Gourami topology weaving across approved local sources
+- Loopback-free local MCP server over stdio
 
 ## Privacy boundary
 
-The current release stores workspaces in browser storage. Files are processed in the browser. GitHub and model credentials are held in component memory for the active tab and are sent only to the endpoint the user chooses.
+The browser release stores workspaces in browser storage. Files are processed in the browser. GitHub and model credentials are held in component memory for the active tab and are sent only to the endpoint the user chooses.
 
-Memory Weaver does not claim end-to-end encryption, zero-knowledge processing, or hosted OAuth. A future desktop release will add an encrypted PGLite vault, OS-keychain credential references, local Ollama, filesystem watchers, and a loopback-only MCP server.
+The new local companion keeps selected source bodies in an AES-256-GCM encrypted PGLite vault, watches only approved roots, and exposes only explicitly MCP-enabled sources over local stdio. It does not claim zero-knowledge processing or hosted OAuth. OS-keychain credential references and signed desktop installers remain future hardening work.
+
+## KoiDream + Gourami
+
+Memory Weaver is the hybrid of two DreamNet fish roles:
+
+```text
+KoiDream: continuity, provenance, versions, receipts
+                     +
+Gourami: topology, relationships, routing, shared context
+                     =
+Memory Weaver: a user-owned memory mesh across approved apps and agents
+```
+
+The local companion is in [`desktop/`](desktop/README.md). It starts with no connectors and no permissions.
 
 ## Product contract
 
@@ -60,15 +78,15 @@ npm audit
 
 ## Current status
 
-Public alpha. The deterministic engine and export contracts are usable now. Hosted collaboration, encrypted desktop storage, background refresh, write-capable connectors, and cloud acceleration are deliberately not part of this release.
+Public alpha. The deterministic browser engine, exports, and encrypted local companion are usable now. Hosted collaboration, OS-keychain integration, write-capable connectors, and cloud acceleration are deliberately not part of this release.
 
 ## Roadmap
 
-1. IndexedDB capacity and encrypted local export
-2. Desktop shell with PGLite and OS keychain support
+1. Native Redis, NATS, Kafka, Neon, Pieces, BrainSync, and Graphiti drivers
+2. OS-keychain credentials and signed desktop installers
 3. Read-only Notion, Drive, Slack, Discord, and Telegram adapters
 4. Warper Keeper Source Bridge import/export
-5. Local Ollama enrichment and scoped local MCP
+5. Local Ollama enrichment through the Agent Gateway
 6. Optional Graphiti projection without moving source bodies
 
 ## License

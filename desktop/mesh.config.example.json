@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "memory-weaver.permissions.v2",
+  "vaultId": "personal-mesh",
+  "revision": 1,
+  "revocationEpoch": 0,
+  "defaultDeny": true,
+  "localOnly": true,
+  "networkEgress": "deny",
+  "connectors": [
+    {
+      "id": "selected-notes",
+      "kind": "filesystem",
+      "enabled": false,
+      "capabilities": ["discover", "read", "watch", "mcp"],
+      "scopes": ["C:/Users/you/Documents/Notes"],
+      "extensions": [".md", ".txt", ".json"],
+      "maxItemBytes": 1048576,
+      "settings": { "maxItemsPerRun": 500 },
+      "authority": "working",
+      "sensitivity": "private"
+    },
+    {
+      "id": "pieces-os",
+      "kind": "pieces",
+      "enabled": false,
+      "capabilities": ["read", "mcp"],
+      "scopes": ["http://127.0.0.1:39300/assets"],
+      "maxItemBytes": 1048576,
+      "settings": { "title": "Pieces OS asset index", "timeoutMs": 10000 },
+      "authority": "working",
+      "sensitivity": "private"
+    },
+    {
+      "id": "brainsync",
+      "kind": "brainsync",
+      "enabled": false,
+      "capabilities": ["discover", "read", "watch", "mcp"],
+      "scopes": ["C:/Users/you/.brainsync/approved-exports"],
+      "authority": "approved",
+      "sensitivity": "private"
+    },
+    {
+      "id": "redis-memory-events",
+      "kind": "redis",
+      "enabled": false,
+      "capabilities": ["read", "subscribe"],
+      "scopes": ["memory:*", "dreamnet:memory:*"],
+      "authority": "working",
+      "sensitivity": "internal"
+    },
+    {
+      "id": "kafka-memory-topics",
+      "kind": "kafka",
+      "enabled": false,
+      "capabilities": ["read", "subscribe"],
+      "scopes": ["dreamnet.memory.*"],
+      "authority": "working",
+      "sensitivity": "internal"
+    },
+    {
+      "id": "neon-approved-views",
+      "kind": "neon",
+      "enabled": false,
+      "capabilities": ["read"],
+      "scopes": ["memory_weaver.*_view"],
+      "authority": "canonical",
+      "sensitivity": "internal"
+    }
+  ]
+}

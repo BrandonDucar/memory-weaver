@@ -1,0 +1,7 @@
+dist/
+node_modules/
+.mesh/
+*.key
+*.db
+*.db-shm
+*.db-wal

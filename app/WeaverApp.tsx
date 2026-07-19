@@ -639,7 +639,19 @@ export function WeaverApp() {
           {view === "connections" && (
             <section className="view-section">
               <div className="section-header compact"><div><span className="eyebrow">Bring your own stack</span><h1>Connections</h1></div></div>
+              <div className="mesh-runtime-banner">
+                <div className="mesh-organ"><span>K</span><div><strong>KoiDream</strong><small>Versions, provenance, encryption, receipts</small></div></div>
+                <ChevronRight size={18} />
+                <div className="mesh-organ"><span>G</span><div><strong>Gourami</strong><small>Topics, relationships, routing, shared context</small></div></div>
+                <ChevronRight size={18} />
+                <div className="mesh-organ result"><Network size={18} /><div><strong>Local memory mesh</strong><small>User-owned and permissioned</small></div></div>
+              </div>
               <div className="connection-list">
+                <article>
+                  <span className="connection-icon"><Network size={22} /></span>
+                  <div><h2>Memory Weaver local companion</h2><p>Encrypted PGLite vault, approved folder watching, KoiDream lineage, Gourami topology, and a read-only local MCP gateway.</p></div>
+                  <a className="primary-button" href="https://github.com/BrandonDucar/memory-weaver/tree/main/desktop" target="_blank" rel="noreferrer">Open companion</a>
+                </article>
                 <article>
                   <span className="connection-icon"><GitBranch size={22} /></span>
                   <div><h2>GitHub</h2><p>Import selected text files from a public or private repository.</p></div>
@@ -663,12 +675,12 @@ export function WeaverApp() {
                 </article>
                 <article className="planned-connection">
                   <span className="connection-icon"><Settings2 size={22} /></span>
-                  <div><h2>Connector gateway</h2><p>Notion, Slack, Discord, Telegram, Drive, and user-owned database adapters belong behind an explicit permission gateway.</p></div>
-                  <span className="status-label">Next adapter pack</span>
+                  <div><h2>Native data mesh adapters</h2><p>Pieces, BrainSync, Obsidian, exact HTTP endpoints, Redis, NATS, Kafka, Neon, Graphiti, and agent clients all use one default-deny permission manifest.</p></div>
+                  <span className="status-label">Companion rollout</span>
                 </article>
               </div>
               <div className="privacy-boundary">
-                <ShieldCheck size={22} /><div><strong>Current privacy boundary</strong><p>This release stores workspaces in browser storage. GitHub and model credentials are kept in component memory only and are cleared when the tab closes. No DreamNet backend receives imported source content.</p></div>
+                <ShieldCheck size={22} /><div><strong>Two explicit privacy boundaries</strong><p>The web workspace stays in browser storage. No DreamNet backend receives imported source content. The companion starts with zero connectors, encrypts approved source bodies locally, preserves untrusted-content labels, and gives MCP clients read access only when a connector grants it. External writeback is disabled.</p></div>
               </div>
             </section>
           )}

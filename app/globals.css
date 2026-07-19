@@ -294,6 +294,14 @@ button.thread-row:hover { background: #f8f7f2; }
 .receipt-row .icon-button:hover { background: #eeece5; }
 
 .connection-list { display: grid; gap: 8px; }
+.mesh-runtime-banner { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; gap: 10px; margin-bottom: 12px; padding: 12px; border: 1px solid var(--line); background: #f8faf8; }
+.mesh-runtime-banner > svg { color: var(--muted); }
+.mesh-organ { min-width: 0; display: flex; align-items: center; gap: 10px; }
+.mesh-organ > span, .mesh-organ > svg { width: 32px; height: 32px; flex: 0 0 32px; display: grid; place-items: center; border: 1px solid var(--ink); background: #fff4bf; color: var(--ink); font: 800 12px var(--font-geist-mono), monospace; }
+.mesh-organ > svg { padding: 7px; background: #e8f4ec; }
+.mesh-organ strong, .mesh-organ small { display: block; }
+.mesh-organ strong { font-size: 11px; }
+.mesh-organ small { margin-top: 3px; color: var(--muted); font-size: 9px; line-height: 1.35; }
 .connection-list article { min-width: 0; min-height: 78px; display: grid; grid-template-columns: 48px minmax(220px, 1fr) auto; align-items: center; gap: 14px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 4px; background: var(--white); }
 .connection-icon { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid var(--line); background: #efede6; color: var(--blue); }
 .connection-list h2 { margin: 0; font-size: 13px; }
@@ -336,6 +344,8 @@ button.thread-row:hover { background: #f8f7f2; }
   .source-layout.with-inspector { grid-template-columns: minmax(0, 1fr) 320px; }
   .connection-list article.llm-connection { grid-template-columns: 48px 1fr; }
   .connection-list article.llm-connection .connection-form { grid-column: 1 / -1; }
+  .mesh-runtime-banner { grid-template-columns: 1fr; }
+  .mesh-runtime-banner > svg { transform: rotate(90deg); justify-self: center; }
 }
 
 @media (max-width: 880px) {
@@ -369,7 +379,7 @@ button.thread-row:hover { background: #f8f7f2; }
   .receipt-row { grid-template-columns: 24px minmax(0,1fr) 34px; }
   .receipt-row code { display: none; }
   .connection-list article, .connection-list article.llm-connection { grid-template-columns: 42px 1fr; }
-  .connection-list article > button, .connection-list article > .status-label { grid-column: 2; justify-self: start; }
+  .connection-list article > button, .connection-list article > a, .connection-list article > .status-label { grid-column: 2; justify-self: start; }
   .connection-form { grid-template-columns: 1fr 1fr; }
 }
 
