@@ -20,6 +20,22 @@
       "sensitivity": "private"
     },
     {
+      "id": "whole-knowledge-folder",
+      "kind": "filesystem",
+      "enabled": false,
+      "capabilities": ["discover", "read", "watch"],
+      "scopes": ["C:/Users/you/Documents"],
+      "maxItemBytes": 2097152,
+      "settings": {
+        "indexAllFiles": true,
+        "maxItemsPerRun": 1000,
+        "maxDepth": 24,
+        "maxBinaryHashBytes": 67108864
+      },
+      "authority": "working",
+      "sensitivity": "private"
+    },
+    {
       "id": "pieces-os",
       "kind": "pieces",
       "enabled": false,
@@ -34,9 +50,27 @@
       "id": "brainsync",
       "kind": "brainsync",
       "enabled": false,
-      "capabilities": ["discover", "read", "watch", "mcp"],
+      "capabilities": ["read", "mcp"],
       "scopes": ["C:/Users/you/.brainsync/approved-exports"],
+      "extensions": [".approved.json"],
+      "settings": { "maxItemsPerRun": 500 },
       "authority": "approved",
+      "sensitivity": "private"
+    },
+    {
+      "id": "gmail-read-only",
+      "kind": "gmail",
+      "enabled": false,
+      "capabilities": ["read"],
+      "scopes": ["https://gmail.googleapis.com/gmail/v1/users/me"],
+      "credentialRef": "env:GMAIL_ACCESS_TOKEN",
+      "maxItemBytes": 4194304,
+      "settings": {
+        "maxItemsPerRun": 100,
+        "includeSpamTrash": false,
+        "labelIds": []
+      },
+      "authority": "working",
       "sensitivity": "private"
     },
     {

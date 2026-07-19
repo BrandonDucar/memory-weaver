@@ -12,7 +12,7 @@ test("KoiDream and Gourami persist, redact, dedupe, and weave approved files", a
   try {
     const notes = path.join(temporary, "notes");
     await mkdir(notes, { recursive: true });
-    await writeFile(path.join(notes, "alpha.md"), "# Alpha\nmesh memory mesh memory\nsk-testsecret0123456789012345", "utf8");
+    await writeFile(path.join(notes, "alpha.md"), "# Alpha\nmesh memory mesh memory\nRelated: [[Lost Note]]\nsk-testsecret0123456789012345", "utf8");
     await writeFile(path.join(notes, "beta.md"), "# Beta\nmesh topology mesh topology", "utf8");
     const config = path.join(temporary, "mesh.config.json");
     await writeFile(config, JSON.stringify({
@@ -39,6 +39,12 @@ test("KoiDream and Gourami persist, redact, dedupe, and weave approved files", a
     const first = await runtime.scan();
     assert.equal(first[0]?.ingested, 2);
     assert.equal((await runtime.status()).vault.edges, 1);
+    assert.equal((await runtime.status()).vault.receipts, 4);
+    const report = await runtime.report();
+    assert.equal(report.sources, 2);
+    assert.equal(report.edges, 1);
+    assert.equal(report.isolatedSources, 0);
+    assert.equal(report.topTopics[0]?.label, "mesh");
     const matches = await runtime.search("mesh", 10, true);
     assert.equal(matches.length, 2);
     const alpha = matches.find((item) => item.title === "alpha.md");
@@ -48,9 +54,19 @@ test("KoiDream and Gourami persist, redact, dedupe, and weave approved files", a
     assert.doesNotMatch(source?.content ?? "", /sk-testsecret/);
     assert.equal(first[0]?.warnings.length, 0);
 
+    const initialAnalysis = await runtime.initialAnalysis();
+    assert.equal(initialAnalysis.brief.kind, "initial");
+    assert.equal(initialAnalysis.receipt.actor, "steward");
+    assert.ok(initialAnalysis.brief.headlines.length > 0);
+    assert.ok(initialAnalysis.brief.questions.length > 0);
+    assert.equal(initialAnalysis.brief.shadows.total, 1);
+    assert.equal(initialAnalysis.brief.shadows.samples[0]?.label, "Lost Note");
+    assert.equal((await runtime.latestBrief("initial"))?.briefId, initialAnalysis.brief.briefId);
+
     const second = await runtime.scan();
     assert.equal(second[0]?.duplicates, 2);
     assert.equal((await runtime.status()).vault.versions, 2);
+    assert.equal((await runtime.status()).vault.receipts, 6);
     await runtime.close();
 
     runtime = await MemoryWeaverRuntime.open(config);

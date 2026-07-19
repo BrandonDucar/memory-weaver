@@ -680,7 +680,7 @@ export function WeaverApp() {
                 </article>
               </div>
               <div className="privacy-boundary">
-                <ShieldCheck size={22} /><div><strong>Two explicit privacy boundaries</strong><p>The web workspace stays in browser storage. No DreamNet backend receives imported source content. The companion starts with zero connectors, encrypts approved source bodies locally, preserves untrusted-content labels, and gives MCP clients read access only when a connector grants it. External writeback is disabled.</p></div>
+                <ShieldCheck size={22} /><div><strong>Two explicit privacy boundaries</strong><p>The web workspace stays in browser storage. No DreamNet backend receives imported source content. The companion starts with zero connectors, encrypts approved source bodies locally, preserves untrusted-content labels, and gives MCP clients read access only when a connector grants it. Source connectors are permanently read-only.</p></div>
               </div>
             </section>
           )}

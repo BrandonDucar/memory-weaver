@@ -6,9 +6,9 @@ import type { PermissionManifest } from "./types.js";
 
 const connectorSchema = z.object({
   id: z.string().min(1),
-  kind: z.enum(["filesystem", "pieces", "brainsync", "redis", "kafka", "nats", "neon", "graphiti", "obsidian", "agent", "http-json"]),
+  kind: z.enum(["filesystem", "pieces", "brainsync", "gmail", "redis", "kafka", "nats", "neon", "graphiti", "obsidian", "agent", "http-json"]),
   enabled: z.boolean(),
-  capabilities: z.array(z.enum(["discover", "read", "watch", "subscribe", "search", "weave", "export", "mcp", "writeback"])),
+  capabilities: z.array(z.enum(["discover", "read", "watch", "subscribe", "search", "weave", "export", "mcp"])),
   scopes: z.array(z.string()),
   extensions: z.array(z.string()).optional(),
   maxItemBytes: z.number().int().positive().optional(),

@@ -1,16 +1,21 @@
 import type { FSWatcher } from "chokidar";
 import { loadManifest, resolveRuntimePaths, type RuntimePaths } from "./config.js";
+import { BrainSyncConnector } from "./connectors/brainsync.js";
 import { FilesystemConnector } from "./connectors/filesystem.js";
 import { HttpJsonConnector } from "./connectors/http-json.js";
+import { GmailConnector } from "./connectors/gmail.js";
+import { PiecesConnector } from "./connectors/pieces.js";
 import { loadOrCreateReceiptSigner, loadOrCreateVaultKey, type ReceiptSigner } from "./crypto.js";
 import { Gourami } from "./gourami.js";
 import { KoiDream } from "./koidream.js";
 import { MeshPolicy, PermissionDeniedError } from "./policy.js";
-import type { ConnectorPermission, ConnectorRunResult, MeshSearchResult, MeshSource, PermissionManifest } from "./types.js";
+import { Steward } from "./steward.js";
+import { ShadowIndex } from "./shadows.js";
+import type { ConnectorPermission, ConnectorRunResult, MeshQualityReport, MeshSearchResult, MeshSource, PermissionManifest, StewardBriefKind } from "./types.js";
 import { LocalMeshVault } from "./vault.js";
 
-const filesystemKinds = new Set(["filesystem", "brainsync", "obsidian"]);
-const httpKinds = new Set(["http-json", "pieces", "graphiti", "agent"]);
+const filesystemKinds = new Set(["filesystem", "obsidian"]);
+const httpKinds = new Set(["http-json", "graphiti", "agent"]);
 
 export interface RuntimeStatus {
   vaultId: string;
@@ -32,6 +37,8 @@ export class MemoryWeaverRuntime {
   readonly policy: MeshPolicy;
   readonly koiDream: KoiDream;
   readonly gourami: Gourami;
+  readonly steward: Steward;
+  readonly shadowIndex: ShadowIndex;
   private readonly watchers: FSWatcher[] = [];
   private configWatcher?: FSWatcher;
   private revoked = false;
@@ -45,6 +52,8 @@ export class MemoryWeaverRuntime {
     this.policy = new MeshPolicy(manifest);
     this.koiDream = new KoiDream(vault, this.policy, signer);
     this.gourami = new Gourami(vault, this.policy, signer);
+    this.steward = new Steward(vault, this.policy, signer);
+    this.shadowIndex = new ShadowIndex(vault);
   }
 
   static async open(configOverride?: string): Promise<MemoryWeaverRuntime> {
@@ -72,7 +81,11 @@ export class MemoryWeaverRuntime {
   }
 
   private implemented(permission: ConnectorPermission): boolean {
-    return filesystemKinds.has(permission.kind) || (httpKinds.has(permission.kind) && permission.scopes.every((scope) => /^https?:\/\//i.test(scope)));
+    return filesystemKinds.has(permission.kind)
+      || permission.kind === "brainsync"
+      || permission.kind === "gmail"
+      || permission.kind === "pieces"
+      || (httpKinds.has(permission.kind) && permission.scopes.every((scope) => /^https?:\/\//i.test(scope)));
   }
 
   async status(): Promise<RuntimeStatus> {
@@ -101,6 +114,12 @@ export class MemoryWeaverRuntime {
     for (const connector of selected) {
       if (filesystemKinds.has(connector.kind)) {
         results.push(await new FilesystemConnector(connector, this.policy, this.koiDream).scan());
+      } else if (connector.kind === "brainsync") {
+        results.push(await new BrainSyncConnector(connector, this.policy, this.koiDream).scan());
+      } else if (connector.kind === "pieces") {
+        results.push(await new PiecesConnector(connector, this.policy, this.koiDream).scan());
+      } else if (connector.kind === "gmail") {
+        results.push(await new GmailConnector(connector, this.policy, this.koiDream, this.vault).scan());
       } else if (httpKinds.has(connector.kind) && connector.scopes.every((scope) => /^https?:\/\//i.test(scope))) {
         results.push(await new HttpJsonConnector(connector, this.policy, this.koiDream).scan());
       } else {
@@ -114,7 +133,8 @@ export class MemoryWeaverRuntime {
         });
       }
     }
-    await this.gourami.weave();
+    await this.koiDream.recordScan(results);
+    if (results.some((result) => result.ingested > 0)) await this.gourami.weave();
     return results;
   }
 
@@ -144,6 +164,39 @@ export class MemoryWeaverRuntime {
   async weave(): Promise<Awaited<ReturnType<Gourami["weave"]>>> {
     this.assertActive();
     return this.gourami.weave();
+  }
+
+  async reindex(): Promise<{ reindex: Awaited<ReturnType<KoiDream["reindex"]>>; weave: Awaited<ReturnType<Gourami["weave"]>> }> {
+    this.assertActive();
+    const reindex = await this.koiDream.reindex();
+    const weave = await this.gourami.weave();
+    return { reindex, weave };
+  }
+
+  async report(): Promise<MeshQualityReport> {
+    this.assertActive();
+    return this.vault.qualityReport();
+  }
+
+  async brief(kind: StewardBriefKind): Promise<Awaited<ReturnType<Steward["generate"]>>> {
+    this.assertActive();
+    return this.steward.generate(kind);
+  }
+
+  async latestBrief(kind?: StewardBriefKind): Promise<Awaited<ReturnType<Steward["latest"]>>> {
+    this.assertActive();
+    return this.steward.latest(kind);
+  }
+
+  async initialAnalysis(): Promise<Awaited<ReturnType<Steward["generate"]>>> {
+    this.assertActive();
+    await this.shadowIndex.scan();
+    return this.steward.generate("initial");
+  }
+
+  async shadows(): Promise<Awaited<ReturnType<ShadowIndex["scan"]>>> {
+    this.assertActive();
+    return this.shadowIndex.scan();
   }
 
   async close(): Promise<void> {

@@ -59,7 +59,4 @@ export class MeshPolicy {
     return resolved;
   }
 
-  requireWriteback(): never {
-    throw new PermissionDeniedError("External writeback is not implemented in this release");
-  }
 }

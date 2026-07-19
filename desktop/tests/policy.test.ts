@@ -28,14 +28,14 @@ test("default-deny policy confines reads to approved roots", () => {
   const policy = new MeshPolicy(manifest);
   assert.equal(policy.requireFilesystemPath("notes", path.join(root, "inside.md"), "read"), path.join(root, "inside.md"));
   assert.throws(() => policy.requireFilesystemPath("notes", path.resolve("outside.md"), "read"), PermissionDeniedError);
-  assert.throws(() => policy.require("notes", "writeback"), PermissionDeniedError);
+  assert.throws(() => policy.require("notes", "export"), PermissionDeniedError);
   assert.equal(policy.allows("notes", "mcp"), false);
 });
 
-test("writeback remains unavailable even when a connector requests it", () => {
+test("disabled connectors remain inaccessible", () => {
   const policy = new MeshPolicy({
     ...manifest,
-    connectors: [{ ...manifest.connectors[0], capabilities: ["read", "writeback"], scopes: ["approved-target"] }],
+    connectors: [{ ...manifest.connectors[0], enabled: false }],
   });
-  assert.throws(() => policy.requireWriteback(), PermissionDeniedError);
+  assert.throws(() => policy.require("notes", "read"), PermissionDeniedError);
 });

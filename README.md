@@ -23,12 +23,18 @@ It is the local-first knowledge preparation layer for [Warper Keeper](https://gi
 - KoiDream provenance, versioning, deduplication, and receipt generation
 - Gourami topology weaving across approved local sources
 - Loopback-free local MCP server over stdio
+- Passive Memory Cartographer with a 30+ source catalog and approval cards
+- Deterministic Steward morning, daily, and weekly briefs
+- First-run Initial Analysis with source coverage, themes, dormant material, and Memory Shadows
+- Whole-file inventory with content extraction where safe and metadata-only coverage elsewhere
+- Read-only Gmail backfill and local EML ingestion
+- Photo, video, and audio resurfacing metadata without copying or editing originals
 
 ## Privacy boundary
 
 The browser release stores workspaces in browser storage. Files are processed in the browser. GitHub and model credentials are held in component memory for the active tab and are sent only to the endpoint the user chooses.
 
-The new local companion keeps selected source bodies in an AES-256-GCM encrypted PGLite vault, watches only approved roots, and exposes only explicitly MCP-enabled sources over local stdio. It does not claim zero-knowledge processing or hosted OAuth. OS-keychain credential references and signed desktop installers remain future hardening work.
+The local companion keeps approved source bodies and Steward briefs in an AES-256-GCM encrypted PGLite vault, watches only approved roots, and exposes only explicitly MCP-enabled sources over local stdio. The Cartographer may detect that a source exists, but it cannot grant itself permission to ingest it. Secret-bearing files are represented by metadata rather than copied content. It does not claim zero-knowledge processing or hosted OAuth. OS-keychain credential references and signed desktop installers remain future hardening work.
 
 ## KoiDream + Gourami
 
@@ -80,11 +86,11 @@ npm audit
 
 ## Current status
 
-Public alpha. The deterministic browser engine, exports, and encrypted local companion are usable now. Hosted collaboration, OS-keychain integration, write-capable connectors, and cloud acceleration are deliberately not part of this release.
+Public alpha. The deterministic browser engine, exports, and encrypted local companion are usable now. Hosted collaboration, OS-keychain integration, and cloud acceleration are deliberately not part of this release. Source connectors are permanently read-only.
 
 ## Roadmap
 
-1. Native Redis, NATS, Kafka, Neon, Pieces, BrainSync, and Graphiti drivers
+1. Native Redis, NATS, Kafka, Neon, Graphiti, Drive, Slack, Notion, Discord, and Telegram drivers
 2. OS-keychain credentials and signed desktop installers
 3. Read-only Notion, Drive, Slack, Discord, and Telegram adapters
 4. Warper Keeper Source Bridge import/export
