@@ -4,7 +4,7 @@
 
 Memory Weaver turns user-owned documents, repositories, conversations, and exports into a portable knowledge weave with source provenance, relationship threads, maintenance findings, and deterministic receipts.
 
-It is the local-first knowledge preparation layer for [Warper Keeper](https://github.com/BrandonDucar) and the broader DreamNet public toolchain. It also works as a standalone application.
+It is the local-first knowledge preparation layer for [Warper Keeper](https://github.com/BrandonDucar/warper-keeper) and the broader DreamNet public toolchain. It also works as a standalone application.
 
 ## What works today
 
