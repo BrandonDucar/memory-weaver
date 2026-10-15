@@ -16,14 +16,15 @@ customer data as proof. No response-time or remediation SLA is promised.
 ## Supported Versions
 
 Memory Weaver is an alpha, not a hardened production credential manager. Security
-fixes target the current `main` branch and latest local-companion alpha. Older
-snapshots and alpha bundles have no backport guarantee. Use an exact commit or
+fixes target the current `main` branch. Previously published local-companion
+alpha bundles are not automatically rebuilt and have no backport guarantee. Use an exact commit or
 release tag when reporting; browser and local-companion behavior differ.
 
-The repository's dependency-security audit has a known failing CI result. Do not
-treat successful functional tests, this reporting policy, or enabled private
-reporting as remediation. Review the current verification workflow before use;
-dependency repair is a separate release gate, not a reason to disable the audit.
+Review the verification workflow for the exact source commit before use. It
+retains dependency audits for both the app and companion. Passing functional
+tests or enabling private reporting does not clear a failing audit; dependency
+repair is a separate release gate, not a reason to disable the audit. No known
+advisories at one check does not establish that software has no vulnerabilities.
 
 ## Security Boundaries
 

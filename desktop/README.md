@@ -25,12 +25,15 @@ External writeback is intentionally absent from the capability model. Memory Wea
 
 ## Start
 
-Download the [Windows alpha bundle](https://github.com/BrandonDucar/memory-weaver/releases/tag/memory-weaver-local-v0.1.0-alpha.2), extract it, and run `install.ps1`. The installer creates an empty default-deny manifest; it does not scan the computer.
+The [earlier Windows alpha bundle](https://github.com/BrandonDucar/memory-weaver/releases/tag/memory-weaver-local-v0.1.0-alpha.2)
+is a historical snapshot, not a patched build of current source. Prefer the
+source workflow below until a new bundle is built and verified. The existing
+installer creates an empty default-deny manifest; it does not scan the computer.
 
 For source development:
 
 ```bash
-npm install
+npm ci --ignore-scripts
 npm run build
 node dist/index.js init
 ```

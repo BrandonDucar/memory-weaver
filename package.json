@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "license": "Apache-2.0",
   "private": true,
+  "workspaces": ["packages/fast-glob-compat"],
   "engines": {
     "node": ">=22.13.0"
   },
@@ -15,29 +16,37 @@
   },
   "dependencies": {
     "lucide-react": "^1.25.0",
-    "next": "16.2.6",
-    "react": "19.2.6",
-    "react-dom": "19.2.6"
+    "next": "16.4.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.45.1",
+    "@cloudflare/vite-plugin": "1.64.0",
     "@tailwindcss/postcss": "4.2.1",
     "@types/node": "22.19.19",
-    "@types/react": "19.2.14",
-    "@types/react-dom": "19.2.3",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.0.2",
-    "@vitejs/plugin-rsc": "0.5.26",
+    "@vitejs/plugin-rsc": "0.5.38",
     "eslint": "9.39.4",
-    "eslint-config-next": "16.2.6",
-    "react-server-dom-webpack": "19.2.6",
+    "eslint-config-next": "16.4.2",
+    "react-server-dom-webpack": "19.3.1",
     "tailwindcss": "4.2.1",
     "typescript": "5.9.3",
     "vinext": "0.0.50",
     "vite": "^8.1.5",
-    "wrangler": "^4.112.0"
+    "wrangler": "4.151.0"
   },
   "overrides": {
-    "postcss": "8.5.10"
+    "postcss": "8.5.30",
+    "image-size": "2.0.4",
+    "sharp": "0.35.5",
+    "@next/eslint-plugin-next": {
+      "fast-glob": "3.3.3-dreamnet.1"
+    },
+    "vite-plugin-dynamic-import": {
+      "fast-glob": "3.3.3-dreamnet.1"
+    }
   },
   "type": "module"
 }

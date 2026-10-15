@@ -1,0 +1,10 @@
+{
+  "name": "fast-glob",
+  "version": "3.3.3-dreamnet.1",
+  "private": true,
+  "description": "Scoped tinyglobby adapter for Memory Weaver build-tool callers",
+  "license": "Apache-2.0",
+  "main": "index.cjs",
+  "engines": { "node": ">=22.13.0" },
+  "dependencies": { "tinyglobby": "0.2.17" }
+}

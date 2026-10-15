@@ -27,3 +27,15 @@ test('support does not send sensitive reports to ordinary issues', () => {
   assert(support.includes('not necessarily an implemented'));
   assert(read('CONTRIBUTING.md').includes('negative tests'));
 });
+
+test('source repair does not imply patched historical binaries or skipped audit gates', () => {
+  assert(read('README.md').includes('historical snapshot'));
+  assert(read('desktop/README.md').includes('not a patched build'));
+  assert(read('SECURITY.md').includes('not automatically rebuilt'));
+  const workflow = read('.github/workflows/ci.yml');
+  for (const gate of ['npm ci --ignore-scripts', 'npm ci --prefix desktop --ignore-scripts',
+    'npm audit --audit-level=high', 'npm audit --prefix desktop --audit-level=high']) {
+    assert(workflow.includes(gate), `Missing verification gate: ${gate}`);
+  }
+  assert(!workflow.includes('continue-on-error'));
+});

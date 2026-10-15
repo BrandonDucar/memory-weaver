@@ -50,7 +50,9 @@ Memory Weaver: a user-owned memory mesh across approved apps and agents
 
 The local companion is in [`desktop/`](desktop/README.md). It starts with no connectors and no permissions.
 
-[Download the local companion alpha](https://github.com/BrandonDucar/memory-weaver/releases/tag/memory-weaver-local-v0.1.0-alpha.2)
+The [earlier local companion alpha bundle](https://github.com/BrandonDucar/memory-weaver/releases/tag/memory-weaver-local-v0.1.0-alpha.2)
+is a historical snapshot. It does not include current dependency repairs; use the
+current source and lockfiles below until a new bundle is built and verified.
 
 ## Product contract
 
@@ -71,7 +73,7 @@ DreamLoops define bounded behavior. Capsules carry reusable capability. Trappers
 Requires Node.js 22.13 or newer.
 
 ```bash
-npm install
+npm ci --ignore-scripts
 npm run dev
 ```
 
@@ -82,16 +84,26 @@ npx tsc --noEmit
 npm run lint
 npm test
 npm audit
+npm ci --prefix desktop --ignore-scripts
+npm run check --prefix desktop
+npm test --prefix desktop
+npm audit --prefix desktop
 ```
 
 ## Current status
 
 Public alpha. The deterministic browser engine, exports, and encrypted local companion are usable now. Hosted collaboration, OS-keychain integration, and cloud acceleration are deliberately not part of this release. Source connectors are permanently read-only.
 
-**Release blocker:** the [repository verification workflow](https://github.com/BrandonDucar/memory-weaver/actions/workflows/ci.yml)
-has a known failing dependency-security audit. Passing builds or functional tests
-does not clear that gate. These documentation changes do not repair dependencies
-or certify the application for production use.
+The [repository verification workflow](https://github.com/BrandonDucar/memory-weaver/actions/workflows/ci.yml)
+checks clean installs, types, lint, app and companion tests, and both dependency
+audits. Review the result for the exact commit you use. An audit with no known
+advisories is a point-in-time dependency check, not a production security certification.
+
+The build uses a [scoped glob compatibility adapter](packages/fast-glob-compat/README.md)
+to remove the unpatched `braces` dependency chain without disabling the audit or
+Next lint rules. Keep that private workspace with the root lockfile; it is not an
+upstream fast-glob release. No cloud app deployment or rebuilt binary is implied
+by a source update.
 
 ## Roadmap
 
