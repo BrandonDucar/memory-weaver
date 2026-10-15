@@ -88,6 +88,11 @@ npm audit
 
 Public alpha. The deterministic browser engine, exports, and encrypted local companion are usable now. Hosted collaboration, OS-keychain integration, and cloud acceleration are deliberately not part of this release. Source connectors are permanently read-only.
 
+**Release blocker:** the [repository verification workflow](https://github.com/BrandonDucar/memory-weaver/actions/workflows/ci.yml)
+has a known failing dependency-security audit. Passing builds or functional tests
+does not clear that gate. These documentation changes do not repair dependencies
+or certify the application for production use.
+
 ## Roadmap
 
 1. Native Redis, NATS, Kafka, Neon, Graphiti, Drive, Slack, Notion, Discord, and Telegram drivers
@@ -96,6 +101,15 @@ Public alpha. The deterministic browser engine, exports, and encrypted local com
 4. Warper Keeper Source Bridge import/export
 5. Local Ollama enrichment through the Agent Gateway
 6. Optional Graphiti projection without moving source bodies
+
+## Help, Security And Contributions
+
+[Get help](SUPPORT.md) | [Report a vulnerability privately](SECURITY.md) |
+[Contribute](CONTRIBUTING.md)
+
+Browser receipts use non-cryptographic FNV-1a change identifiers, not signatures.
+Local-companion Ed25519 receipts use a local key; they do not independently
+authenticate a publisher or establish that a claim is true.
 
 ## License
 
