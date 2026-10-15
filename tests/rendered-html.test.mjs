@@ -53,3 +53,11 @@ test("declares the source privacy boundary honestly", async () => {
   assert.match(app, /No DreamNet backend receives imported source content/);
   assert.doesNotMatch(app, /zero-knowledge|end-to-end encrypted|military-grade/i);
 });
+
+test("initial sample renders a stable receipt ID across server requests", async () => {
+  const first = await (await render()).text();
+  const second = await (await render()).text();
+  const receipt = /receipt_demo_[a-z0-9_-]+/;
+  assert.match(first, receipt);
+  assert.equal(first.match(receipt)[0], second.match(receipt)[0]);
+});

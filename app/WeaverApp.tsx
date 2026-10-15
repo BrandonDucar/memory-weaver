@@ -116,7 +116,12 @@ const sourceFromFile = async (file: File): Promise<WeaveSource> => ({
 });
 
 export function WeaverApp() {
-  const [workspace, setWorkspace] = useState<WeaverWorkspace>(() => createDemoWorkspace());
+  const [workspace, setWorkspace] = useState<WeaverWorkspace>(() => {
+    const sample = createDemoWorkspace();
+    // The initial sample must match during SSR and browser hydration.
+    if (sample.result) sample.result.receipt.id = `receipt_demo_${sample.result.receipt.inputHash}`;
+    return sample;
+  });
   const [hydrated, setHydrated] = useState(false);
   const [view, setView] = useState<View>("weave");
   const [dialog, setDialog] = useState<Dialog>(null);
